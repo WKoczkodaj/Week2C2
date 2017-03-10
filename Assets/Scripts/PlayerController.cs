@@ -10,11 +10,29 @@ public class PlayerController : MonoBehaviour {
     public float speed;
     public Boundary boundary;
 
+    public GameObject laser;
+    public Transform laserSpawn;
+
     private Rigidbody2D rb;
+
+    private float nextFire = 0.3f;
+    private float myTime = 0.0f;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+        myTime += Time.deltaTime;
+
+        if (Input.GetButton("Fire1") && myTime > nextFire)
+        {
+            Instantiate(laser, laserSpawn.position, laserSpawn.rotation);
+
+            myTime = 0.0f;
+        }
     }
 
     // Update is called once per frame
